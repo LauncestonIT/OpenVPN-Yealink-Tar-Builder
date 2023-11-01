@@ -7,7 +7,7 @@ mkdir openvpn
 mkdir ./openvpn/keys
 
 # Extract the needed parts
-awk '/setenv[[:space:]]+UV_ID/,/key-direction/' $ovpn_file > ./openvpn/vpn.cnf
+awk '/\<ca>/{exit}1' $ovpn_file > ./openvpn/vpn.cnf
 awk '/<tls-auth>/ {flag=1; next} /<\/tls-auth>/ {flag=0} flag' $ovpn_file > ./openvpn/keys/ta.key
 awk '/<cert>/ {flag=1; next} /<\/cert>/ {flag=0} flag' $ovpn_file > ./openvpn/keys/client.crt
 awk '/<ca>/ {flag=1; next} /<\/ca>/ {flag=0} flag' $ovpn_file > ./openvpn/keys/ca.crt
