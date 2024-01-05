@@ -1,7 +1,11 @@
 #!/bin/sh
 
-### Specify the ovpn file. ###
-ovpn_file=
+if [ $# -eq 0 ]; then
+  echo "Missing filename"
+  exit 1
+fi
+
+ovpn_file="$1"
 
 mkdir openvpn
 mkdir ./openvpn/keys
